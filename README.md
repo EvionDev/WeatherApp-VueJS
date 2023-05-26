@@ -2,6 +2,10 @@
 
 WeatherApp is a weather application built using Vue.js and Tailwind CSS. It allows users to check the current weather, including information about the weather conditions (cloudy, sunny, etc.) and the feels-like and basic temperatures. The app utilizes an external weather API (https://api.weatherapi.com) to fetch the latest weather data. Based on this data, WeatherApp displays the weather conditions, such as sky condition, as well as the feels-like and basic temperatures.
 
+## Live preview
+
+[https://eviondev-weatherapp.netlify.app](https://eviondev-weatherapp.netlify.app)
+
 ## Installation and Configuration Guide
 
 1. Get your api key from [api.weatherapi.com](https://api.weatherapi.com)

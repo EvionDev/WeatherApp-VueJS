@@ -1,18 +1,16 @@
 <script setup>
 import baseCard from "./components/baseCard.vue";
-import imageProp from "./components/imageTag.vue";
 import { ref } from "vue";
 
 const query = ref("");
-const weather = ref(null);
+const weatherData = ref(null);
 const api_key = import.meta.env.VITE_API_KEY;
 
 const url_base = "https://api.weatherapi.com/v1";
 
-const d = new Date();
-const fullDate = `${d.getDate()} - ${
-  d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1
-} -  ${d.getFullYear()}`;
+const date = new Date();
+const options = { day: "numeric", month: "numeric", year: "numeric" };
+const fullDate = new Intl.DateTimeFormat("pl-PL", options).format(date);
 
 function fetchData(e) {
   if (e.key == "Enter") {
@@ -22,16 +20,18 @@ function fetchData(e) {
           return res.json();
         }
       })
-      .then((json) => (weather.value = json));
+      .then(
+        (json) =>
+          (weatherData.value = {
+            temp_c: json.current.temp_c,
+            feelslike_c: json.current.feelslike_c,
+            city: json.location.name,
+            country: json.location.country,
+            imgSrc: json.current.condition.icon,
+            imgAlt: json.current.condition.text,
+          })
+      );
   }
-}
-
-function img(value) {
-  return weather.value.current.condition[value];
-}
-
-function temp(value) {
-  return weather.value.current[value];
 }
 </script>
 
@@ -44,26 +44,26 @@ function temp(value) {
       v-model="query"
       @keypress="fetchData"
     />
-    <div v-if="weather" class="flex items-center flex-col mt-4">
+    <div v-if="weatherData" class="flex items-center flex-col mt-4">
       <header class="flex items-center">
-        <image-prop
-          :src="img('icon')"
-          :alt="img('text')"
+        <img
+          :src="weatherData.imgSrc"
+          :alt="weatherData.imgAlt"
           class="max-w-[50%] w-auto h-auto"
-        ></image-prop>
+        />
         <div>
-          <p>{{ temp("temp_c") }}°C</p>
-          <p v-if="temp('feelslike_c') !== temp('temp_c')">
-            Feels {{ temp("feelslike_c") }}°C
+          <p>{{ weatherData.temp_c }}°C</p>
+          <p v-if="weatherData.feelslike_c !== weatherData.temp_c">
+            Feels {{ weatherData.feelslike_c }}°C
           </p>
         </div>
       </header>
       <main class="flex flex-col items-center">
         <h1 class="text-3xl underline">
-          {{ weather.location.name }}
+          {{ weatherData.city }}
         </h1>
         <h3>
-          {{ weather.location.country }}
+          {{ weatherData.country }}
         </h3>
         <p>{{ fullDate }}</p>
       </main>

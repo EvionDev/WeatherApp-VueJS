@@ -23,8 +23,8 @@ function fetchData(e) {
       .then(
         (json) =>
           (weatherData.value = {
-            temp_c: json.current.temp_c,
-            feelslike_c: json.current.feelslike_c,
+            temperature: json.current.temp_c,
+            feelslike: json.current.feelslike_c,
             city: json.location.name,
             country: json.location.country,
             imgSrc: json.current.condition.icon,
@@ -52,9 +52,9 @@ function fetchData(e) {
           class="max-w-[50%] w-auto h-auto"
         />
         <div>
-          <p>{{ weatherData.temp_c }}°C</p>
-          <p v-if="weatherData.feelslike_c !== weatherData.temp_c">
-            Feels {{ weatherData.feelslike_c }}°C
+          <p>{{ weatherData.temperature }}°C</p>
+          <p v-if="weatherData.feelslike !== weatherData.temperature">
+            Feels {{ weatherData.feelslike }}°C
           </p>
         </div>
       </header>

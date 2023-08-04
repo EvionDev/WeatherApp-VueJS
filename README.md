@@ -8,7 +8,7 @@ WeatherApp is a weather application built using Vue.js and Tailwind CSS. It allo
 
 ## Installation and Configuration Guide
 
-1. Get your api key from [api.weatherapi.com](https://api.weatherapi.com)
+1. Get your api key from [weatherapi.com](https://weatherapi.com)
 
 2. Clone the application repository from GitHub or download zip.
 #### `git clone https://github.com/EvionDev/WeatherApp-VueJS.git`
